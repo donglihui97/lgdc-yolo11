@@ -1,0 +1,11 @@
+{
+ "name": "cpu_gc10_b16",
+ "threads": 8,
+ "rounds": 20,
+ "block": 3,
+ "models": {
+  "parent": "engines/gc10_parent_s0_320x640_u8g_b16.onnx",
+  "lgdc": "engines/gc10_lgdc_s0_320x640_u8g_b16.onnx",
+  "channel_pruning_round8": "engines/gc10_chprune_r8_s0_320x640_u8g_b16.onnx"
+ }
+}

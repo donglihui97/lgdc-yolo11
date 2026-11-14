@@ -1,0 +1,15 @@
+{
+ "name": "pipeline_gc10_b1",
+ "dataset": "gc10",
+ "geom": [
+  320,
+  640,
+  2
+ ],
+ "rounds": 20,
+ "reference": "parent",
+ "engines": {
+  "parent": "engines/gc10_parent_s0_320x640_u8g_b1.engine",
+  "lgdc": "engines/gc10_lgdc_s0_320x640_u8g_b1.engine"
+ }
+}

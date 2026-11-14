@@ -1,0 +1,11 @@
+{
+ "name": "gpu_gc10_b16",
+ "rounds": 20,
+ "block": 32,
+ "engines": {
+  "parent": "engines/gc10_parent_s0_320x640_u8g_b16.engine",
+  "lgdc": "engines/gc10_lgdc_s0_320x640_u8g_b16.engine",
+  "channel_pruning": "engines/gc10_chprune_s0_320x640_u8g_b16.engine",
+  "channel_pruning_round8": "engines/gc10_chprune_r8_s0_320x640_u8g_b16.engine"
+ }
+}

@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+data/
+runs/
+engines/
+results/
+reports/
+tools/clock/
+configs/*.log
+configs/units_*.json
+*.pt
+*.onnx
+*.engine

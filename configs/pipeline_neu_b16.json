@@ -1,0 +1,15 @@
+{
+ "name": "pipeline_neu_b16",
+ "dataset": "neu",
+ "geom": [
+  256,
+  256,
+  1
+ ],
+ "rounds": 20,
+ "reference": "parent",
+ "engines": {
+  "parent": "engines/neu_parent_s0_256x256_u8g_b16.engine",
+  "lgdc": "engines/neu_lgdc_s0_256x256_u8g_b16.engine"
+ }
+}

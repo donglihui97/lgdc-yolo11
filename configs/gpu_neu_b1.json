@@ -1,0 +1,11 @@
+{
+ "name": "gpu_neu_b1",
+ "rounds": 20,
+ "block": 128,
+ "engines": {
+  "parent": "engines/neu_parent_s0_256x256_u8g_b1.engine",
+  "lgdc": "engines/neu_lgdc_s0_256x256_u8g_b1.engine",
+  "channel_pruning": "engines/neu_chprune_s0_256x256_u8g_b1.engine",
+  "channel_pruning_round8": "engines/neu_chprune_r8_s0_256x256_u8g_b1.engine"
+ }
+}

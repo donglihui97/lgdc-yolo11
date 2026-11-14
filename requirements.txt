@@ -1,0 +1,14 @@
+# Versions used for the paper (Python 3.12, CUDA 12.8, Windows 11).
+# Install torch/torchvision from the PyTorch index that matches your CUDA version.
+torch==2.11.0
+torchvision==0.26.0
+ultralytics==8.4.184
+torch-pruning==1.6.1
+onnx==1.23.2
+onnxruntime==1.31.0
+tensorrt==10.16.1.11
+opencv-python==5.0.0.93
+pycocotools==2.0.11
+numpy==2.5.2
+scipy==1.18.1
+pillow==12.3.0

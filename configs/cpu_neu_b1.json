@@ -1,0 +1,11 @@
+{
+ "name": "cpu_neu_b1",
+ "threads": 8,
+ "rounds": 20,
+ "block": 25,
+ "models": {
+  "parent": "engines/neu_parent_s0_256x256_u8g_b1.onnx",
+  "lgdc": "engines/neu_lgdc_s0_256x256_u8g_b1.onnx",
+  "channel_pruning_round8": "engines/neu_chprune_r8_s0_256x256_u8g_b1.onnx"
+ }
+}

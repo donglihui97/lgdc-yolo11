@@ -1,0 +1,81 @@
+{
+ "dataset": "NEU-DET, 256x256 input",
+ "note": "Parent seed 0. dt_b*_pct: GPU (TensorRT FP16, laptop GPU with the SM clock locked at 1200 MHz) latency reduction from removing the unit alone, median of 20 rounds. a_u, a0: validation mAP50-95 (%) after 10 epochs of fine-tuning with the unit removed / with no unit removed.",
+ "t0_b1_ms": 0.855,
+ "t0_b16_ms": 1.877,
+ "a0": 44.16,
+ "units": [
+  {
+   "unit": "c3k2.2",
+   "dt_b1_pct": 7.904,
+   "dt_b16_pct": 0.709,
+   "a_u": 43.049
+  },
+  {
+   "unit": "c3k2.4",
+   "dt_b1_pct": 4.91,
+   "dt_b16_pct": -0.327,
+   "a_u": 43.328
+  },
+  {
+   "unit": "c3k2.6",
+   "dt_b1_pct": 7.077,
+   "dt_b16_pct": 1.337,
+   "a_u": 43.475
+  },
+  {
+   "unit": "c3k2.8",
+   "dt_b1_pct": 8.144,
+   "dt_b16_pct": 1.394,
+   "a_u": 43.844
+  },
+  {
+   "unit": "sppf.9",
+   "dt_b1_pct": 1.497,
+   "dt_b16_pct": 0.494,
+   "a_u": 43.899
+  },
+  {
+   "unit": "c2psa.10",
+   "dt_b1_pct": 10.659,
+   "dt_b16_pct": 3.983,
+   "a_u": 43.143
+  },
+  {
+   "unit": "c3k2.13",
+   "dt_b1_pct": 3.952,
+   "dt_b16_pct": 0.273,
+   "a_u": 44.696
+  },
+  {
+   "unit": "c3k2.16",
+   "dt_b1_pct": 4.431,
+   "dt_b16_pct": -0.598,
+   "a_u": 44.051
+  },
+  {
+   "unit": "c3k2.19",
+   "dt_b1_pct": 4.551,
+   "dt_b16_pct": 0.0,
+   "a_u": 42.094
+  },
+  {
+   "unit": "c3k2.22",
+   "dt_b1_pct": 8.263,
+   "dt_b16_pct": 0.358,
+   "a_u": 43.41
+  },
+  {
+   "unit": "head.reg",
+   "dt_b1_pct": 1.437,
+   "dt_b16_pct": 1.831,
+   "a_u": 40.254
+  },
+  {
+   "unit": "head.cls",
+   "dt_b1_pct": 4.192,
+   "dt_b16_pct": 2.782,
+   "a_u": 41.391
+  }
+ ]
+}
