@@ -1,0 +1,20 @@
+{
+ "name": "frames_gc10_b1",
+ "dataset": "gc10",
+ "geom": [
+  320,
+  640
+ ],
+ "rounds": 20,
+ "frames": 256,
+ "reference": "parent",
+ "post": [
+  "gpu",
+  "host"
+ ],
+ "engines": {
+  "parent": "engines/gc10_parent_s0_320x640_u8g_b1.engine",
+  "lgdc": "engines/gc10_lgdc_s0_320x640_u8g_b1.engine",
+  "channel_pruning_round8": "engines/gc10_chprune_r8_s0_320x640_u8g_b1.engine"
+ }
+}

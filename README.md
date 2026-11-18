@@ -17,7 +17,7 @@ Three training seeds; GPU latency is the TensorRT FP16 network latency (engine i
 | GC10-DET | Channel pruning, rounded | 30.20 ± 1.18 | 0.896 ms (−6.6%) | 3.457 ms (−16.9%) |
 | GC10-DET | LGDC | 31.49 ± 0.61 | 0.736 ms (−23.3%) | 3.682 ms (−11.4%) |
 
-At batch 16 the layers are limited by arithmetic, and channel pruning becomes the faster choice. The paper also reports CPU latency (ONNX Runtime), the full JPEG-to-detection pipeline, and an ablation of the selection rule.
+At batch 16 the layers are limited by arithmetic, and channel pruning becomes the faster choice. The paper also reports CPU latency (ONNX Runtime), the frame rate of a frame-grabber pipeline with host-side NMS, the variation between TensorRT builds, and an ablation of the selection rule.
 
 ## Removable units
 
@@ -45,7 +45,7 @@ python scripts/select_units.py --table measurements/units_gc10.json
 lgdc/            units.py (unit removal, C3k2 split for pruning), trt_utils.py (ONNX/TensorRT, gray folding),
                  pipeline.py (decoding, batched NMS, COCO evaluation), stats.py, paths.py
 scripts/         train_parent.py, measure_units.py, select_units.py, compress.py,
-                 build_eval.py, bench_gpu.py, bench_cpu.py, bench_pipeline.py
+                 build_eval.py, bench_gpu.py, bench_cpu.py, bench_pipeline.py, bench_frames.py
 tools/           prepare_data.py (dataset conversion and split), clock_ctl.ps1, locked_timing.ps1
 configs/         timing-session configs for the comparisons of the paper
 splits/          image ids of the train/val/test splits used in the paper
@@ -146,6 +146,12 @@ tools\locked_timing.ps1 -Script bench_cpu.py -Configs configs\cpu_neu_b1.json,co
 tools\locked_timing.ps1 -Script bench_pipeline.py -Configs configs\pipeline_neu_b1.json,configs\pipeline_neu_b16.json
 ```
 
+**7. Frame budget.** `bench_frames.py` starts from gray frames already decoded into host memory, as a frame grabber delivers them, and times prepare, transfer, network and NMS per frame at batch 1, serial and overlapped. `"post": ["gpu", "host"]` compares the batched NMS on the GPU with `host_nms` (one copy of the raw output to the host, then NMS on the CPU), which returns the same detections. Example config: `configs/frames_gc10_b1.json`.
+
+```bash
+tools\locked_timing.ps1 -Script bench_frames.py -Configs configs\frames_neu_b1.json,configs\frames_gc10_b1.json
+```
+
 ## Timing protocol
 
 A laptop lowers its clocks as it heats up, so every timing session runs with locked clocks. `tools/clock_ctl.ps1` fixes the GPU SM clock at 1200 MHz (`nvidia-smi -lgc`) and disables CPU turbo boost, which keeps the CPU at its 2.3 GHz base clock; it needs an elevated PowerShell, or two scheduled tasks that run it with highest privileges. All engines compared in one table are timed in the same session: 20 rounds, the engine order of each round drawn from `random.Random(0)`, and a block of CUDA Graph replays per engine and round (128 at batch 1, 32 at batch 16). The scripts report the median and the 95th percentile and a moving-block bootstrap interval of the median (block 5, 2000 resamples, seed 0). `bench_gpu.py` samples the GPU clock once per second and prints every clock state seen during the session, so a session in which the clock left 1200 MHz can be discarded.
@@ -153,14 +159,14 @@ A laptop lowers its clocks as it heats up, so every timing session runs with loc
 ## Citation
 
 ```bibtex
-@article{lgdc2026,
+@misc{lgdc2026,
   title   = {Latency-Guided Depth Compression for Single-Image GPU Inference in Steel Surface Defect Detection},
-  author  = {Lihui Dong, Zhuo Li, and Yue Dong},
-  journal = {Journal of Real-Time Image Processing},
+  author  = {...},
+  note    = {Manuscript under review},
   year    = {2026}
 }
 ```
 
 ## License
 
-This code is released under the GNU Affero General Public License v3.0 (see `LICENSE`), the license of [Ultralytics](https://github.com/ultralytics/ultralytics), on which it builds. It also uses [Torch-Pruning](https://github.com/VainF/Torch-Pruning) (MIT). NEU-DET and GC10-DET are distributed by their authors under their own terms and are not included here.
+The code builds on [Ultralytics](https://github.com/ultralytics/ultralytics), which is released under AGPL-3.0, and on [Torch-Pruning](https://github.com/VainF/Torch-Pruning). NEU-DET and GC10-DET are distributed by their authors under their own terms and are not included here.

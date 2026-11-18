@@ -188,6 +188,29 @@ def batched_nms(raw, conf, iou, max_det, nc):
     return torch.cat([xyxy[keep], score[keep, None], c[keep, None].float(), b[keep, None].float()], 1)
 
 
+def host_nms(raw, conf, iou, max_det, nc):
+    """Copy the raw output to the host once, then filter by confidence and run class-aware NMS on the CPU.
+
+    For one frame with a few dozen candidates this avoids the many small GPU kernels and the
+    synchronizations of batched_nms. Returns the same (K, 7) layout on the CPU.
+    """
+    r = raw.cpu().numpy()
+    out = []
+    for i in range(r.shape[0]):
+        scores = r[i, 4:, :]
+        best = scores.max(0)
+        keep = np.nonzero(best > conf)[0]
+        if not len(keep):
+            continue
+        cls = scores[:, keep].argmax(0)
+        xywh = r[i, :4, keep]  # (K, 4): the advanced indices i and keep put K first
+        xyxy = torch.from_numpy(np.concatenate([xywh[:, :2] - xywh[:, 2:] / 2, xywh[:, :2] + xywh[:, 2:] / 2], 1))
+        s, c = torch.from_numpy(best[keep]), torch.from_numpy(cls)
+        k = torchvision.ops.batched_nms(xyxy, s, c, iou)[:max_det]
+        out.append(torch.cat([xyxy[k], s[k, None], c[k, None].float(), torch.full((len(k), 1), float(i))], 1))
+    return torch.cat(out) if out else torch.zeros((0, 7))
+
+
 def to_original(det, metas):
     """det: (K, 7) CPU array in network coordinates -> original coordinates (in place)."""
     if not len(det):

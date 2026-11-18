@@ -1,0 +1,20 @@
+{
+ "name": "frames_neu_b1",
+ "dataset": "neu",
+ "geom": [
+  256,
+  256
+ ],
+ "rounds": 20,
+ "frames": 256,
+ "reference": "parent",
+ "post": [
+  "gpu",
+  "host"
+ ],
+ "engines": {
+  "parent": "engines/neu_parent_s0_256x256_u8g_b1.engine",
+  "lgdc": "engines/neu_lgdc_s0_256x256_u8g_b1.engine",
+  "channel_pruning_round8": "engines/neu_chprune_r8_s0_256x256_u8g_b1.engine"
+ }
+}
