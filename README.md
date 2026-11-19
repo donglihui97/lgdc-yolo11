@@ -68,16 +68,7 @@ Put the original archives under `data/`: `NEU-DET.zip` and the GC10-DET `archive
 python tools/prepare_data.py --project .
 ```
 
-The script reads the archives without extracting them, converts the VOC annotations to YOLO labels, groups exact and near-duplicate images (pHash distance ≤ 4) so that a group never spans two splits, and draws a 70/15/15 split stratified by class with seed 42. It writes `data/processed/{neu_det,gc10_det}/` with `images/`, `labels/`, `data.yaml`, `manifest.csv` and `splits/{train,val,test}.txt`, and an audit of every annotation change to `reports/`. The split lists should equal the ones in `splits/`; their SHA-256 values are
-
-| File | SHA-256 |
-|---|---|
-| neu_det train | `aaec4bc11eb7afe354e4b97d9102a359e4f5e94f2839ed3c8d7bd55cc82aabf0` |
-| neu_det val | `dac5664ff244a183b35720b62d631577a9c6643ad989781a837a3d949e870d0c` |
-| neu_det test | `00dd927b1c21fb7b43997d6688eece6268102ff94dafa9a755733db8a757c971` |
-| gc10_det train | `e74c397074afa107d73f7e2b8c1d7945b80bdbe443a0003c1c151aab52e29d1f` |
-| gc10_det val | `e2d1559f5e2f198f1a216b61002c34fbb400cf4568c30fda35fb0272280b00b4` |
-| gc10_det test | `a60c1f4e01c6fda0b67b97951a3cc260033b58c94656db4c79df44e0d9617df1` |
+The script reads the archives without extracting them, converts the VOC annotations to YOLO labels, groups exact and near-duplicate images (pHash distance ≤ 4) so that a group never spans two splits, and draws a 70/15/15 split stratified by class with seed 42. It writes `data/processed/{neu_det,gc10_det}/` with `images/`, `labels/`, `data.yaml`, `manifest.csv` and `splits/{train,val,test}.txt`, and an audit of every annotation change to `reports/`. The split lists should equal the ones in `splits/`.
 
 NEU-DET has 1800 images (1260/270/270); GC10-DET keeps 2291 annotated images (1605/345/341).
 
@@ -161,8 +152,7 @@ A laptop lowers its clocks as it heats up, so every timing session runs with loc
 ```bibtex
 @misc{lgdc2026,
   title   = {Latency-Guided Depth Compression for Single-Image GPU Inference in Steel Surface Defect Detection},
-  author  = {...},
-  note    = {Manuscript under review},
+  author  = {Dong, Lihui and Li, Zhuo and Dong, Yue},
   year    = {2026}
 }
 ```
